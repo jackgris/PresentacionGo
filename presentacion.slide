@@ -1,30 +1,23 @@
-Go: un entorno sencillo de programacion
+﻿Go: un entorno de programación sencillo
 
 19 Abril 2014
 
-# Go es un lenguaje de proposito general que sirve de puente entre la 
+# Go es un lenguaje de propósito general que sirve de puente entre la 
 # eficiencia de un lenguaje tipado y la productividad de un lenguaje 
-# dinamico. Pero no es unicamente el lenguaje lo que lo hace especial
-# a Go – Go tiene una libreria estandar amplia y consistente y 
+# dinámico. Pero no es unicamente el lenguaje lo que lo hace especial
+# a Go – Go tiene una librería estándar amplia y consistente y 
 # herramientas poderosas pero sencillas.
 # 
-# Esta charla es una introduccion a Go, seguido por un recorrido a 
-# algunos programas reales para demostrar el poder, alcance y sencilles
+# Esta charla es una introducción a Go, seguido por un recorrido a 
+# algunos programas reales para demostrar el poder, alcance y sencillez
 # del entorno de desarrollo en Go.
 
 Gabriel Pozo
 Programador
 http://aprendiendodeandroidymas.com
 @jackgris2
-plus.google.com/+GabrielPozo
-golang.org
-
-##############################################################################
-############### traducir charla ##############################################
-##############################################################################
-############## tambien puedo ver ############################################# 
-############## http://talks.golang.org/2012/tutorial.slide#54 ################
-##############################################################################
+http://plus.google.com/+GabrielPozo
+http://golang.org
 
 * Porque un nuevo lenguaje?
 
@@ -35,14 +28,14 @@ Necesitaba:
 - Eficiencia
 - Seguridad
 - Concurrencia
-- Escalabilidad
-- Ciclo de desarrollo rapido
+- Escalhabilidad
+- Ciclo de desarrollo rápido
 - No tenga sorpresas
 - Una linda mascota
 
 * Diseño
 
-"El consenso condujo al diseño. Nada salio en el lenguaje hasta que [Ken Thompson, Robert Griesemer, y yo] todos coincidieron en que era lo correcto. Algunas caracteristicas no se resuelven hasta un año o mas despues de la discucion." - Rob Pike
+"El consenso condujo al diseño. Nada salio en el lenguaje hasta que [Ken Thompson, Robert Griesemer, y yo] todos coincidieron en que era lo correcto. Algunas características no se resuelven hasta un año o mas después de la discusión." - Rob Pike
 
 Go es:
 
@@ -55,9 +48,9 @@ Go es:
 
 Liberado en Marzo del 2012
 
-Espesificacion del lenguaje y librerias que seran soportadas por años.
+Especificación del lenguaje y librerías que serán soportadas por años.
 
-Garantia: el codigo escrito para Go 1.0 podra ser compilado y ejecutado con Go 1.x.
+Garantía: el código escrito para Go 1.0 podrá ser compilado y ejecutado con Go 1.x.
 
 La mejor cosa que hemos hecho (palabras de los desarrolladores)
 
@@ -69,27 +62,27 @@ La mejor cosa que hemos hecho (palabras de los desarrolladores)
 
 .play code/hello.go
 
-* Libreria estandar
+* Librería estándar
 
 * Paquetes
 
-El codigo de Go se crea en paquetes.
+El código de Go se crea en paquetes.
 
 Los paquetes contienen declaraciones de tipos, funciones, variables, y contantes.
 
-Los paquetes pueden ser muy pequeños (paquete `errors` tiene solo una declaracion) o muy grandes (paquete `net/http` tiene >100 declaraciones).
+Los paquetes pueden ser muy pequeños (paquete `errors` tiene solo una declaración) o muy grandes (paquete `net/http` tiene >100 declaraciones).
 
-Las mayusculas determinan la accesibilidad: `Foo` es exportada, `foo` no lo es
+Las mayúsculas determinan la accesibilidad: `Foo` es exportada, `foo` no lo es
 
 * io
 
-El paquete `io` nos provee las interfaces fundamentales para el manejo de  I/O que se utiliza en la mayoria del codigo en Goe.
+El paquete `io` nos provee las interfaces fundamentales para el manejo de  I/O que se utiliza en la mayoría del código en Go.
 
 Las mas extendidas son los tipos `Reader` y `Writer`, que describen los streams de datos.
 
 .code code/io/io.go
 
-Las implementaciones de `Reader` y `Writer` incluyen archivos(files), sockets, (des)comprimir, imagenes, JSON, y muchos mas.
+Las implementaciones de `Reader` y `Writer` incluyen archivos(files), sockets, (des)comprimir, imágenes, JSON, y muchos mas.
 
 * Encadenar io.Readers
 
@@ -109,12 +102,12 @@ El paquete `encoding/json`convierte los datos desde JSON-encoded y hacia estruct
 
 * time
 
-El paquete `time` nos provee una representacion del tiempo, duracion y otras funciones utiles realacionadas con el tiempo.
+El paquete `time` nos provee una representación del tiempo, duración y otras funciones útiles relacionadas con el tiempo.
 
 .play code/time.go /START/,/END/
 .play code/time2.go /START/,/END/
 
-`time.Time` tambien contiene valores como `time.Location` (solo para mostrar):
+`time.Time` también contiene valores como `time.Location` (solo para mostrar):
 
 .play code/time3.go /START/,/END/
 
@@ -130,7 +123,7 @@ El paquete `flag` nos provee una API sencilla para analizar opciones de lineas d
 
 * La herramienta go
 
-La herramienta `go` es la estandar para construir e instalar codigo Go.
+La herramienta `go` es la estándar para construir e instalar código Go.
 
 Compilar un simple archivo y ejecutar el programa:
 
@@ -144,14 +137,14 @@ Construir e instalar el paquete `fmt` y sus dependencias:
 
 	$ go install fmt
 
-Esta herramienta actua como una interfaz para la mayoria de las otras herramientas de Go.
+Esta herramienta actúa como una interfaz para la mayoría de las otras herramientas de Go.
 
 * Importar paths
 
-`go` es una herramienta "sin configuracion" ("zero configuration"). No necesita Makefiles o scripts. Solo codigo Go.
-Su esquema de compilacion y codigo estan siempre sincronizados; ellos son uno al mismo tiempo.
+`go` es una herramienta "sin configuración" ("zero configuration"). No necesita Makefiles o scripts. Solo código Go.
+Su esquema de compilación y código están siempre sincronizados; ellos son uno al mismo tiempo.
 
-Las rutas para importar los paquetes reflejan la ruta donde esta ubicado el codigo en nuestro sistema de ficheros:
+Las rutas para importar los paquetes reflejan la ruta donde esta ubicado el código en nuestro sistema de ficheros:
 
   src/
     github.com/nf/
@@ -166,15 +159,15 @@ El programa `gosynth` importa el paquete `wav`:
 
   import "github.com/nf/wav"
 
-Instalando `gosynth` va a instalar automaticamente el paquete `wav`:
+Instalando `gosynth` va a instalar automáticamente el paquete `wav`:
 
   $ go install github.com/nf/gosynth
 
 * Dependencias remotas
 
-La herramienta `go` tambien puede tomar codigo Go desde repositorios remotos.
+La herramienta `go` también puede tomar código Go desde repositorios remotos.
 
-El paths de importacio pueden ser URLs:
+El paths de importación pueden ser URLs:
 
 	import "code.google.com/p/go.net/websocket"
 
@@ -192,25 +185,25 @@ Este diseño sencillo nos conduce a otras herramientas interesantes:
 
 * Godoc
 
-Godoc extrae la documentacion desde el mismo codigo Go y lo presenta en una variedad de formas.
+Godoc extrae la documentación desde el mismo código Go y lo presenta en una variedad de formas.
 
-Los comentarios no necesitan ningun formato en particular, solo tiene que preseder a lo que documentan.
+Los comentarios no necesitan ningún formato en particular, solo tiene que preceder a lo que documentan.
 
 	// Divide el slices s en todas las sub-string separadas por sep y nos devuelve
     // un array de las sub-string que se encontraban entre los separadores del slice.
-	// Si sep esta vacio, Split va a dividir despues de cada secuencia  UTF-8.
+	// Si sep esta vació, Split va a dividir después de cada secuencia  UTF-8.
 	// Es equivalente a  SplitN con un conteo de -1.
 	func Split(s, sep string) []string {
 
 .image images/split.png
 
-La documentacion vive con el codigo, es sencillo mantenerla actualizada.
+La documentación vive con el código, es sencillo mantenerla actualizada.
 
 * Gofmt
 
-La herramienta `gofmt` nos va a dar un lindo formato para nuestro codigo fuente.
+La herramienta `gofmt` nos va a dar un lindo formato para nuestro código fuente.
 
-Todo el codigo del nucleo de Go fue formateado con gofmt, y aproximadamente el  ~70% del codigo libre tambien.
+Todo el código del núcleo de Go fue formateado con gofmt, y aproximadamente el  ~70% del código libre también.
 
 Fin de discusiones aburridas sobre el formato.
 
@@ -242,13 +235,13 @@ Para correr los tests de todo el proyecto:
 
 * Tests: benchmarks
 
-El paquete `testing` tambien soporta benchmarks.
+El paquete `testing` también soporta benchmarks.
 	
-Una funcion de ejemplo de benchmark:
+Una función de ejemplo de benchmark:
 
 .code code/test/string_test.go /func BenchmarkIndex/,/^}/
  
-El paquete benchmark va a varias `b.N` hasta que la funcion de benchmark dure el tiempo suficiente para ser cronometrado de forma fiable.
+El paquete benchmark va a varias `b.N` hasta que la función de benchmark dure el tiempo suficiente para ser cronometrado de forma fiable.
 
 	$ go test -test.bench=Index
 	PASS
@@ -256,7 +249,7 @@ El paquete benchmark va a varias `b.N` hasta que la funcion de benchmark dure el
 
 * Tests: ejemplo
 
-El paquete `testing` tambien soporta ejmplos comprovables.
+El paquete `testing` también soporta ejemplos comprobables.
 
 .code code/test/string_test.go /func ExampleIndex/,/^}/
 
@@ -267,15 +260,15 @@ Ejemplo de como construir y correr como parte de una suite normal de test:
 	--- PASS: ExampleIndex (0.00 seconds)
 	PASS
 
-El ejemplo es mostrado en `godoc` alongside the thing it demonstratespara demostrarlo:
+El ejemplo es mostrado en `godoc` para demostrarlo:
 
 .link http://golang.org/pkg/strings/#Index
 
 * Y otros mas
 
-- `vet`: verificacion de codigo para errores comunes de los programadores
-- `pprof`: uso de CPU y memory
-- `fix`: migrar codigo automaticamente como el cambio de APIs
+- `vet`: verificación de código para errores comunes de los programadores
+- `pprof`: uso de CPU y memoria
+- `fix`: migrar código automáticamente como el cambio de APIs
 - soporte para GDB
 - Soporte para editores: Vim, Emacs, Eclipse, Sublime Text
 
@@ -285,25 +278,25 @@ El ejemplo es mostrado en `godoc` alongside the thing it demonstratespara demost
 
 `Webfront` es un servidor HTTP y proxy inverso.
 
-Lee un archivo de reglas de configuracion en formato JSON como este:
+Lee un archivo de reglas de configuración en formato JSON como este:
 
 .code code/webfront/main.go /^\[/,/\]/
 
-Para todas las peticiones en el host `example.com` (o cualquier nombre que finaliceor any name ending en `".example.com"`) este servira archivos desde el directorio `/var/www`.
+Para todas las peticiones en el host `example.com` (o cualquier nombre que finalice en `".example.com"`) este servirá archivos desde el directorio `/var/www`.
 
-Para solicitudes a `example.org`, reenviara la solicitud al servidor HTTP que escucha en localhost a travez del puerto 8080.
+Para solicitudes a `example.org`, reenviara la solicitud al servidor HTTP que escucha en localhost a través del puerto 8080.
 
 * El tipo Rule (regla)
 
-Un valor `Rule` espesifica que debe hacer para una solicitud a un host espesifico.
+Un valor `Rule` especifica que debe hacer para una solicitud a un host específico.
 
 .code code/webfront/main.go /Rule represents/,/^}/
 
-Se corresponde directamente con las entradas en el archivo de configuracion JSON.
+Se corresponde directamente con las entradas en el archivo de configuración JSON.
 
 .code code/webfront/main.go /^\[/,/\]/
 
-* Metodos de Rule
+* Métodos de Rule
 
 .code code/webfront/main.go /Match returns/,/^}/
 .code code/webfront/main.go /Handler returns/,/^}/
@@ -315,17 +308,17 @@ El tipo `Server` es el responsable de cargar y refrescar las reglas desde el arc
 .code code/webfront/main.go /Server implements/,/^}/
 .code code/webfront/main.go /ServeHTTP matches/,/^}/
 
-* El metodo handler
+* El método handler
 
 .code code/webfront/main.go /handler returns/,/^}/
 
-* Analisis de las reglas (Parsing rules)
+* Análisis de las reglas (Parsing rules)
 
-La funcion `parseRules`utiliza el paquete `encoding/json` para leer el archivo de reglas en una estructura de datos de Go.
+La función `parseRules` utiliza el paquete `encoding/json` para leer el archivo de reglas en una estructura de datos de Go.
 
 .code code/webfront/main.go /parseRules reads/,/^}/
 
-* El metodo loadRules
+* El método loadRules
 
 .code code/webfront/main.go /loadRules tests/,/^}/
 
@@ -333,7 +326,7 @@ La funcion `parseRules`utiliza el paquete `encoding/json` para leer el archivo d
 
 .code code/webfront/main.go /NewServer constructs/,/^}/
 
-Este constructor lanza una goroutine para correr el metodo `refreshRules`.
+Este constructor lanza una goroutine para correr el método `refreshRules`.
 
 * Refrescando las reglas
 
@@ -341,7 +334,7 @@ Este constructor lanza una goroutine para correr el metodo `refreshRules`.
 
 * Colocar todo junto
 
-La funcion  main analiza las opciones que se le pasan en la linea de comando, construye un objeto `Server`, y lanza un servidor HTTP que sirve todas las peticiones con `Server`.
+La función  main analiza las opciones que se le pasan en la linea de comando, construye un objeto `Server`, y lanza un servidor HTTP que sirve todas las peticiones con `Server`.
 
 .code code/webfront/main.go /^var/,/^}/
 
@@ -349,33 +342,33 @@ La funcion  main analiza las opciones que se le pasan en la linea de comando, co
 
 * Testing (1/3)
 
-El test de integracion de `Server` utiliza el paquete `httptest` para construir un servidor  HTTP fictisio, sintetiza un conjunto de reglas, y construye una instancia `Server` que utiliza esas reglas.
+El test de integración de `Server` utiliza el paquete `httptest` para construir un servidor  HTTP ficticio, sintetiza un conjunto de reglas, y construye una instancia `Server` que utiliza esas reglas.
 
 .code code/webfront/server_test.go /^func testHandler/,/STOP/
 
 * Testing (2/3)
 
-Casa caso de prueba en la tabla espesifica una URL para cada tipo de solicitud y el cuerpo y codigo de respuesta esperada.
+Casa caso de prueba en la tabla específica una URL para cada tipo de solicitud y el cuerpo y código de respuesta esperada.
 
 .code code/webfront/server_test.go /TESTS START/,/STOP/
 
 * Testing (3/3)
 
-Para cada caso de prueba, construye un `http.Request` para la url y un `httptest.ResponseRecorder` para capturar la respuesta, y se los pasa al metodo `Server.ServeHTTP`. Entonces verifica que la respuesta coincida con el caso de prueba.
+Para cada caso de prueba, construye un `http.Request` para la url y un `httptest.ResponseRecorder` para capturar la respuesta, y se los pasa al método `Server.ServeHTTP`. Entonces verifica que la respuesta coincida con el caso de prueba.
 
 .code code/webfront/server_test.go /RANGE START/,/^}/
 
-* Demostracion
+* Demostración
 
 * Conclusiones
 
-* Mas informacion
+* Mas información
 
 Todo sobre Go:
 
 .link http://golang.org
 
-Presentacion de esta charla:
+Presentación de esta charla:
 
 .link http://talks.golang.org/2012/simple.slide
 
