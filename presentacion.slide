@@ -21,21 +21,21 @@ http://golang.org
 
 * Porque un nuevo lenguaje?
 
-Motivo de la necesidad de Google.
+Motivo, la necesidad de Google.
 
 Necesitaba:
 
 - Eficiencia
 - Seguridad
 - Concurrencia
-- Escalhabilidad
-- Ciclo de desarrollo rápido
-- No tenga sorpresas
+- Escalabilidad
+- Un ciclo de desarrollo rápido
+- No tener sorpresas
 - Una linda mascota
 
 * Diseño
 
-"El consenso condujo al diseño. Nada salio en el lenguaje hasta que [Ken Thompson, Robert Griesemer, y yo] todos coincidieron en que era lo correcto. Algunas características no se resuelven hasta un año o mas después de la discusión." - Rob Pike
+"El consenso condujo al diseño. Nada salio en el lenguaje hasta que [Ken Thompson, Robert Griesemer, y yo] todos coincidieron en que era lo correcto. Algunas características no se resolvieron hasta un año o mas, después de la discusión." - Rob Pike
 
 Go es:
 
@@ -96,7 +96,7 @@ El paquete `net/http` implementa un servidor y cliente HTTP.
 
 * encoding/json
 
-El paquete `encoding/json`convierte los datos desde JSON-encoded y hacia estructuras de datos nativas en Go.
+El paquete `encoding/json`convierte los datos desde JSON hacia estructuras de datos nativas en Go y viceversa.
 
 .play code/json.go /const/,$
 
@@ -189,10 +189,10 @@ Godoc extrae la documentación desde el mismo código Go y lo presenta en una va
 
 Los comentarios no necesitan ningún formato en particular, solo tiene que preceder a lo que documentan.
 
-	// Divide el slices s en todas las sub-string separadas por sep y nos devuelve
-    // un array de las sub-string que se encontraban entre los separadores del slice.
-	// Si sep esta vació, Split va a dividir después de cada secuencia  UTF-8.
-	// Es equivalente a  SplitN con un conteo de -1.
+	// Split slices s into all substrings separated by sep and returns a slice of
+	// the substrings between those separators.
+	// If sep is empty, Split splits after each UTF-8 sequence.
+	// It is equivalent to SplitN with a count of -1.
 	func Split(s, sep string) []string {
 
 .image images/split.png
@@ -213,7 +213,7 @@ Nos ahorra una gran cantidad de tiempo.
 
 * Tests: escribir
 
-La herramienta `go` el el paquete `testing` nos provee un framework sencillo para escribir test.
+La herramienta `go` en el paquete `testing` nos provee un framework sencillo para escribir test.
 
 .code code/test/string_test.go /func TestIndex/,/^}/
 
@@ -303,7 +303,7 @@ Se corresponde directamente con las entradas en el archivo de configuración JSO
 
 * El tipo Server
 
-El tipo `Server` es el responsable de cargar y refrescar las reglas desde el archivo y servir las peticiones HTTP con el manejador (handler) apropiado.
+El tipo `Server` es el responsable de cargar y refrescar las reglas desde el archivo y servir las peticiones HTTP con el "manejador" (o handler) apropiado.
 
 .code code/webfront/main.go /Server implements/,/^}/
 .code code/webfront/main.go /ServeHTTP matches/,/^}/
@@ -348,7 +348,7 @@ El test de integración de `Server` utiliza el paquete `httptest` para construir
 
 * Testing (2/3)
 
-Casa caso de prueba en la tabla específica una URL para cada tipo de solicitud y el cuerpo y código de respuesta esperada.
+Casos de prueba, en la tabla se específica una URL para cada tipo de solicitud y el cuerpo y código de respuesta esperada.
 
 .code code/webfront/server_test.go /TESTS START/,/STOP/
 
@@ -360,7 +360,28 @@ Para cada caso de prueba, construye un `http.Request` para la url y un `httptest
 
 * Demostración
 
+* Quienes lo usan?
+
+Por parte de Google y terceros (como Mozilla y Canonical) 
+
+.link http://dl.google.com
+.link https://code.google.com/p/vitess
+.link http://www.iron.io
+.link http://www.cloudflare.com
+.link https://juju.ubuntu.com
+.link http://heka-docs.readthedocs.org/en/latest
+
+Otros proyectos
+
+.link https://github.com/bitly/nsq
+.link https://github.com/remogatto/mandala
+
 * Conclusiones
+
+Un tweet interesante por parte de Rob Pike
+
+    “Just looked at a Google-internal Go server with 139K goroutines serving 
+    over 68K active network connections. Concurrency wins. #golang”
 
 * Mas información
 
