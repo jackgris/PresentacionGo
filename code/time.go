@@ -10,9 +10,9 @@ import (
 func main() {
 	// START OMIT
 	if time.Now().Hour() < 12 {
-		fmt.Println("Good morning.")
+		fmt.Println("Buen dia.")
 	} else {
-		fmt.Println("Good afternoon (or evening).")
+		fmt.Println("Buenas tardes (o noches).")
 	}
 	// END OMIT
 }

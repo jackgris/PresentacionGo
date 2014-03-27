@@ -9,8 +9,8 @@ import (
 )
 
 var (
-	message = flag.String("message", "Hello!", "what to say")
-	delay   = flag.Duration("delay", 2*time.Second, "how long to wait")
+	message = flag.String("message", "Hola!", "que hay para decir")
+	delay   = flag.Duration("delay", 2*time.Second, "cuanto tiempo debo esperar")
 )
 
 func main() {

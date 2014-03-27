@@ -14,10 +14,10 @@
 
 Gabriel Pozo
 Programador
+
 http://aprendiendodeandroidymas.com
 @jackgris2
 http://plus.google.com/+GabrielPozo
-http://golang.org
 
 * Porque un nuevo lenguaje?
 
@@ -305,7 +305,7 @@ Se corresponde directamente con las entradas en el archivo de configuración JSO
 
 El tipo `Server` es el responsable de cargar y refrescar las reglas desde el archivo y servir las peticiones HTTP con el "manejador" (o handler) apropiado.
 
-.code code/webfront/main.go /Server implements/,/^}/
+.code code/webfront/main.go /Server implementa/,/^}/
 .code code/webfront/main.go /ServeHTTP matches/,/^}/
 
 * El método handler
@@ -389,7 +389,7 @@ Todo sobre Go:
 
 .link http://golang.org
 
-Presentación de esta charla:
+Presentación de la cual esta basada esta charla:
 
 .link http://talks.golang.org/2012/simple.slide
 
