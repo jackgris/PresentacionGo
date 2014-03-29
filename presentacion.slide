@@ -290,7 +290,7 @@ Para solicitudes a `example.org`, reenviara la solicitud al servidor HTTP que es
 
 Un valor `Rule` especifica que debe hacer para una solicitud a un host específico.
 
-.code code/webfront/main.go /Rule represents/,/^}/
+.code code/webfront/main.go /Rule representa/,/^}/
 
 Se corresponde directamente con las entradas en el archivo de configuración JSON.
 
@@ -298,39 +298,39 @@ Se corresponde directamente con las entradas en el archivo de configuración JSO
 
 * Métodos de Rule
 
-.code code/webfront/main.go /Match returns/,/^}/
-.code code/webfront/main.go /Handler returns/,/^}/
+.code code/webfront/main.go /Match devuelve/,/^}/
+.code code/webfront/main.go /Handler devuelve/,/^}/
 
 * El tipo Server
 
 El tipo `Server` es el responsable de cargar y refrescar las reglas desde el archivo y servir las peticiones HTTP con el "manejador" (o handler) apropiado.
 
 .code code/webfront/main.go /Server implementa/,/^}/
-.code code/webfront/main.go /ServeHTTP matches/,/^}/
+.code code/webfront/main.go /ServeHTTP compara/,/^}/
 
 * El método handler
 
-.code code/webfront/main.go /handler returns/,/^}/
+.code code/webfront/main.go /handler devuelve/,/^}/
 
 * Análisis de las reglas (Parsing rules)
 
 La función `parseRules` utiliza el paquete `encoding/json` para leer el archivo de reglas en una estructura de datos de Go.
 
-.code code/webfront/main.go /parseRules reads/,/^}/
+.code code/webfront/main.go /parseRules lee/,/^}/
 
 * El método loadRules
 
-.code code/webfront/main.go /loadRules tests/,/^}/
+.code code/webfront/main.go /loadRules comprueba/,/^}/
 
 * Construyendo el servidor
 
-.code code/webfront/main.go /NewServer constructs/,/^}/
+.code code/webfront/main.go /NewServer construye/,/^}/
 
 Este constructor lanza una goroutine para correr el método `refreshRules`.
 
 * Refrescando las reglas
 
-.code code/webfront/main.go /refreshRules polls/,/^}/
+.code code/webfront/main.go /refreshRules lee/,/^}/
 
 * Colocar todo junto
 

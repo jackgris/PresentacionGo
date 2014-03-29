@@ -58,9 +58,10 @@ import (
 )
 
 var (
-	httpAddr     = flag.String("http", ":80", "HTTP listen address")
-	ruleFile     = flag.String("rules", "", "rule definition file")
-	pollInterval = flag.Duration("poll", time.Second*10, "file poll interval")
+	httpAddr     = flag.String("http", ":80", "escuchando la direccion HTTP")
+	ruleFile     = flag.String("rules", "", "archivo de definicion de reglas")
+	pollInterval = flag.Duration("poll", time.Second*10,
+		"intervalo de tiempo para la lectura del archivo")
 )
 
 func main() {
@@ -77,27 +78,27 @@ func main() {
 	}
 }
 
-// Server implementa an http.Handler that acts as either a reverse proxy or
-// a simple file server, as determined by a rule set.
+// Server implementa http.Handler que actua como un proxy reverso,
+// o como un simple servidor de archivo, segun lo determinado por un conjunto de reglas.
 type Server struct {
-	mu    sync.RWMutex // guards the fields below
-	mtime time.Time    // when the rule file was last modified
+	mu    sync.RWMutex // proteje los siguiente campos
+	mtime time.Time    // cuando el archivo de reglas fue modificado por ultima vez
 	rules []*Rule
 }
 
-// Rule represents a rule in a configuration file.
+// Rule representa una de las reglas en el archivo de configuracion.
 type Rule struct {
-	Host    string // to match against request Host header
-	Forward string // non-empty if reverse proxy
-	Serve   string // non-empty if file server
+	Host    string // para comparar la cabecera en la peticion al Host
+	Forward string // no puede ser vacio si es reverse proxy
+	Serve   string // no puede ser vacio si es un archivo que debe devolver el servidor
 }
 
-// Match returns true if the Rule matches the given Request.
+// Match devuelve true si la regla coincide con la peticion dada.
 func (r *Rule) Match(req *http.Request) bool {
 	return req.Host == r.Host || strings.HasSuffix(req.Host, "."+r.Host)
 }
 
-// Handler returns the appropriate Handler for the Rule.
+// Handler devuelve el manejador apropiado para Rule.
 func (r *Rule) Handler() http.Handler {
 	if h := r.Forward; h != "" {
 		return &httputil.ReverseProxy{
@@ -113,8 +114,8 @@ func (r *Rule) Handler() http.Handler {
 	return nil
 }
 
-// NewServer constructs a Server that reads rules from file with a period
-// specified by poll.
+// NewServer construye un Server que lee las reglas desde el archivo cada un periodo
+// de tiempo espesificado por poll.
 func NewServer(file string, poll time.Duration) (*Server, error) {
 	s := new(Server)
 	if err := s.loadRules(file); err != nil {
@@ -124,18 +125,18 @@ func NewServer(file string, poll time.Duration) (*Server, error) {
 	return s, nil
 }
 
-// ServeHTTP matches the Request with a Rule and, if found, serves the
-// request with the Rule's handler.
+// ServeHTTP compara las respuesta con Rule, si la encuentra, devuelve la
+// respuesta con el manejador de Rule apropiado.
 func (s *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	if h := s.handler(r); h != nil {
 		h.ServeHTTP(w, r)
 		return
 	}
-	http.Error(w, "Not found.", http.StatusNotFound)
+	http.Error(w, "Not se encontro.", http.StatusNotFound)
 }
 
-// handler returns the appropriate Handler for the given Request,
-// or nil if none found.
+// handler devuelve el manejador apropiado para la solicitud dada,
+// o nil si no lo encontro.
 func (s *Server) handler(req *http.Request) http.Handler {
 	s.mu.RLock()
 	defer s.mu.RUnlock()
@@ -147,8 +148,8 @@ func (s *Server) handler(req *http.Request) http.Handler {
 	return nil
 }
 
-// refreshRules polls file periodically and refreshes the Server's rule
-// set if the file has been modified.
+// refreshRules lee el archivo de forma periodica y refresca las configuraciones de
+// reglas en los Server's si el archivo a sido modificado.
 func (s *Server) refreshRules(file string, poll time.Duration) {
 	for {
 		if err := s.loadRules(file); err != nil {
@@ -158,8 +159,8 @@ func (s *Server) refreshRules(file string, poll time.Duration) {
 	}
 }
 
-// loadRules tests whether file has been modified
-// and, if so, loads the rule set from file.
+// loadRules comprueba si el archivo ah sido modificado
+// y, si lo fue, vuelve a cargar las reglas desde el archivo.
 func (s *Server) loadRules(file string) error {
 	fi, err := os.Stat(file)
 	if err != nil {
@@ -180,7 +181,8 @@ func (s *Server) loadRules(file string) error {
 	return nil
 }
 
-// parseRules reads rule definitions from file returns the resultant Rules.
+// parseRules lee las definiciones de reglas desde el archivo y devuelve el
+// Rule que resulta de ello.
 func parseRules(file string) ([]*Rule, error) {
 	f, err := os.Open(file)
 	if err != nil {

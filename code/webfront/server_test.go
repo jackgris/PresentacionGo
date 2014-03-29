@@ -47,11 +47,11 @@ func TestServer(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	// continued next slide
+	// sigue en el siguiente slide
 	// STOP OMIT
 
 	// TESTS START OMIT
-	// continued from previous slide
+	// continuacion del slide anterior
 
 	var tests = []struct {
 		url  string
@@ -60,16 +60,16 @@ func TestServer(t *testing.T) {
 	}{
 		{"http://example.com/", 200, "OK"},
 		{"http://foo.example.com/", 200, "OK"},
-		{"http://example.org/", 200, "contents of index.html\n"},
-		{"http://example.net/", 404, "Not found.\n"},
-		{"http://fooexample.com/", 404, "Not found.\n"},
+		{"http://example.org/", 200, "contenido de index.html\n"},
+		{"http://example.net/", 404, "No encontrado.\n"},
+		{"http://fooexample.com/", 404, "No encontrado.\n"},
 	}
 
-	// continued next slide
+	// sigue en el siguiente slide
 	// STOP OMIT
 
 	// RANGE START OMIT
-	// continued from previous slide
+	// continuacion del slide anterior
 
 	for _, test := range tests {
 		req, _ := http.NewRequest("GET", test.url, nil)
